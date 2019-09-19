@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
+    <meta name="renderer" content="webkit"/>
+    <link rel="shortcut icon" href="./static/image/logo.png"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-transform"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+    <title>主页</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="./static/plugins/bootstrap/css/bootstrap.css">
+    <link href="./static/user/css/style.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="./static/plugins/editor/css/editormd.css"/>
+    <link rel="stylesheet" href="./static/plugins/bootstrap-validator/css/bootstrapValidator.css">
+
+    <style>
+        .label {
+
+            margin-left: 10px;
+        }
+
+        .comment-container {
+            padding-top: 30px;
+
+        }
+
+        .comment_list {
+            background: white;
+            margin: 0 auto;
+            padding: 0 20px
+        }
+    </style>
+</head>
+<body>
+<header id="header" class="header bg-white">
+    <div class="navbar-container">
+        <a href="index.html" class="navbar-logo">
+            <img src="./static/image/logo.png" alt="首页"/>
+        </a>
+        <div class="navbar-menu">
+            <a href="archives.html">归档</a>
+            <a href="about.html">关于</a>
+        </div>
+    </div>
+</header>
+<div class="container main-content post-page">
+    <div class="row">
+        <div class="text-center col-md-12">
+            <h1 id="title">Markdown</h1>
+            <p id="other"></p>
+            <div id="categorie_list">
+                <span class="label label-success">HTML</span>
+                <span class="label label-success">Java</span>
+            </div>
+        </div>
+        <div id="post_content" class="col-lg-8">
+            <textarea style="display:none;">###测试数据</textarea>
+        </div>
+        <p class="text-center">
+            本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名,转载请标明出处
+        </p>
+    </div>
+</div>
+<div class="comment-container">
+    <div class="container">
+        <div class="row">
+            <div class="clearfix">
+                <form  id="comment_form" class="comment-form" >
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="名称" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <textarea name="content" id="content" class="form-control" placeholder="评论内容不要超过800字"></textarea>
+                    </div>
+                    <p><span id="count">800</span>/800</p>
+                    <button type="button" class="submit" id="misubmit">提交</button>
+                </form>
+                <div class="text-center" id="comment_forbid">
+                    <span class="response">评论已关闭</span>
+                </div>
+            </div>
+
+            <div id="comment" class="comment-form">
+                <div id="comment_list" class="comment_list">
+                    <div>
+                        <h3>作者</h3>
+                        <p>评论内容</p>
+                        <span>2019年4月25日08:41:52</span>
+                    </div>
+                </div>
+                <nav class="pull-right">
+                    <ul class="pagination" id="paging_toolbar">
+                        <li><a href="#" aria-label="Previous"><span aria-hidden="true">上一页</span></a></li>
+                        <li class="active"><a href="#">1<span class="sr-only">(current)</span></a></li>
+                        <li class=""><a href="#">2<span class="sr-only">(current)</span></a></li>
+                        <li class=""><a href="#">3<span class="sr-only">(current)</span></a></li>
+                        <li class=""><a href="#">4<span class="sr-only">(current)</span></a></li>
+                        <li class=""><a href="#">5<span class="sr-only">(current)</span></a></li>
+                        <li class="disabled"><a href="#" aria-label="Previous"><span
+                                aria-hidden="true">下一页</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--所有页面必须导入start-->
+<script src="./static/plugins/jquery/jquery-3.4.0.js"></script>
+<script src="./static/plugins/bootstrap/js/bootstrap.js"></script>
+<script src="./static/js/base.js"></script>
+<script src="./static/plugins/bootstrap-validator/js/bootstrapValidator.js"></script>
+<script src="./static/plugins/bootstrap-validator/js/language/zh_CN.js"></script>
+
+<script src="./static/plugins/editor/lib/marked.min.js"></script>
+<script src="./static/plugins/editor/lib/prettify.min.js"></script>
+<script src="./static/plugins/editor/lib/raphael.min.js"></script>
+<script src="./static/plugins/editor/lib/underscore.min.js"></script>
+<script src="./static/plugins/editor/lib/sequence-diagram.min.js"></script>
+<script src="./static/plugins/editor/lib/flowchart.min.js"></script>
+<script src="./static/plugins/editor/lib/jquery.flowchart.min.js"></script>
+
+<script src="./static/plugins/editor/editormd.js"></script>
+
+<script>
+    var aid = getUrlParam('aid');
+
+    $(function () {
+        /*设置文本域输入内容长度并实时提示剩余字数*/
+        $('#content').on('input propertychange',function () {
+            var val = $(this).val();//获取当前文本域内容
+            if (val.length>800){
+                $(this).val(val.substr(0,800));
+            }
+            var count=800-$(this).val().length;
+            $('#count').text(count);
+        });
+        $.ajax({
+            url:getRootPath()+'/getArticleById',
+            data:{id:aid},
+            method:'get',
+            dataType:'json',
+            success:function (res) {
+                $('#title').text(res.title);
+                $('#other').text('发布于:'+res.created);
+                editormd.markdownToHTML('post_content',{
+                    markdown:res.content,
+                    htmlDecode:'style,script,iframe',
+                    emoji:true,//默认不解析
+                    taskList:true,
+                    tex:true,
+                    flowChart:true,
+                    sequenceDiagram:true
+                });
+                if (res.comment==1){
+                    $('#comment_forbid').remove();
+                } else {
+                    $('#comment_form').remove();
+                }
+            },
+            error:function (e) {
+                alert('获取文章详情出现异常');
+                console.log(e);
+            }
+        });
+        $.ajax({
+           url:getRootPath()+'/getCategoryName',
+           data:{aid:aid},
+           method:'get',
+            success:function (res) {
+                var html='';
+                for (var i = 0;i<res.length;i++){
+                    html+='<span class="label label-success">'+res[i].cname+'</span> ';
+                }
+                $('#categorie_list').empty().append(html);
+            },
+            error:function (e) {
+                alert('获取文章分类名称异常');
+                console.log(e);
+            }
+        });
+        $('#comment_form').bootstrapValidator({
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',             //验证成功状态
+                invalid: 'glyphicon glyphicon-remove',       //验证失败状态
+                validating: 'glyphicon glyphicon-refresh'    //正在验证状态
+            },
+            /*配置要验证的属性*/
+            fields: {
+                /*根据username属性*/
+                name: {
+                    validators: {
+                        notEmpty: {
+                            message: '名称不能为空'
+                        },
+                        stringLength: {
+                            max: 8,
+                            min: 1,
+                            message: "名字长度在1-8个字符之间"
+                        }
+                    }
+                },
+                content: {
+                    validators: {
+                        notEmpty: {
+                            message: '评论内容不能为空'
+                        }
+                    }
+                }
+
+            }
+        });
+        $('#misubmit').click(function () {
+            var bootstrapValidator = $('#comment_form').data('bootstrapValidator');
+            bootstrapValidator.validate();
+            if (bootstrapValidator.isValid()) {
+                var name = $('#name').val();
+                var content=$('#content').val();
+                if (aid){
+                    $.ajax({
+                       url:getRootPath()+'/addComment',
+                       data:{
+                           aid:aid,
+                           name:name,
+                           content:content
+                       } ,
+                        method:'post',
+                        dataType:'json',
+                        success:function (res) {
+                            if (res.code==1){
+                                alert('评论成功，等待审核');
+                                $('#comment_form')[0].reset();
+                                $('#count')[800]
+                            } else {
+                                alert('评论失败');
+                            }
+                        },
+                        error:function (e) {
+                            alert('提交评论异常');
+                            console.log(e);
+                        }
+                    });
+                }
+            }
+        });
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,262 @@
+.main{
+    position: relative;
+    max-width: 2560px;
+    margin: 0 auto;
+}
+.main .hero-section:first-child [data-unit-id]:nth-child(-n+1){
+    padding-top: 84px;
+}
+
+.theme-dark{
+    background-color: #000;
+    color: #ccc;
+}
+
+.theme-dark a{
+    color: #6bf;
+}
+
+.theme-dark h1, .theme-dark h2, .theme-dark h3, .theme-dark h4, .theme-dark h5, .theme-dark h6 {
+    color: #fff;
+}
+
+.main .hero-section [data-unit-id] .unit-wrapper {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.main .hero-section [data-unit-id] .unit-wrapper a.unit-link{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+}
+
+.main .hero-section [data-unit-id] .unit-wrapper .unit-copy-wrapper{
+    position: relative;
+    flex-grow: 0;
+    z-index: 4;
+}
+
+.main .hero-section [data-unit-id] .unit-copy-wrapper{
+    text-align: center;
+    padding-top: 47px;
+}
+.main .hero-section [data-unit-id] .unit-copy-wrapper>*.headline{
+    font-size: 56px;
+    line-height: 1.07143;
+    font-weight: 600;
+    letter-spacing: -.005em;
+    font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+}
+
+.main .hero-section [data-unit-id] .headline,
+.main .hero-section [data-unit-id] .subhead,
+.main .hero-section [data-unit-id] .cta{
+    text-align: center;
+    display: block;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    flex-shrink: 1;
+}
+
+.logo-image{
+    margin: 0 auto;
+}
+
+.main .hero-section [data-unit-id] .unit-copy-wrapper>*.subhead{
+    font-size: 27px;
+    line-height: 1.14815;
+    font-weight: 400;
+    letter-spacing: .008em;
+    font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+    margin-top: 6px;
+}
+
+.centerall {
+    padding-left: 0.4em;
+}
+
+.main .hero-section [data-unit-id] .unit-copy-wrapper>*.cta-link{
+    font-family: "SF Pro SC","SF Pro Display","SF Pro Icons","PingFang SC",
+    "Helvetica Neue","Helvetica","Arial",sans-serif;
+}
+
+.main .hero-section [data-unit-id] .unit-copy-wrapper>*.cta-link{
+    position: relative;
+    z-index: 4;
+    text-decoration: none;
+}
+
+.main .hero-section [data-unit-id] .unit-copy-wrapper>*.cta,
+.main .hero-section [data-unit-id] .unit-copy-wrapper>*.cta-link {
+    display: inline-block;
+    font-size: 21px;
+    line-height: 1.38105;
+    font-weight: 400;
+    letter-spacing: .011em;
+    font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+    margin-top: 9px;
+}
+
+.main .hero-section [data-unit-id] .unit-wrapper .unit-copy-wrapper a {
+    pointer-events: all;
+    z-index: 4;
+}
+
+.main .hero-section [data-unit-id] .unit-copy-wrapper>*.cta-links a:last-child {
+    margin-left: 26px;
+}
+
+.main .hero-section [data-unit-id] .unit-wrapper .unit-image-wrapper{
+    z-index: 1;
+    overflow: visible;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+}
+
+.main .hero-section [data-unit-id] .unit-image-wrapper{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+#ac-globalnav .ac-gn-list{
+    margin: 0 -10px;
+    width: auto;
+    height: 44px;
+    display: flex;
+    justify-content: space-between;
+    user-select: none;
+}
+
+#ac-globalnav .ac-gn-item{
+    display: inline-block;
+    position: relative;
+    height: 44px;
+    z-index: 1;
+    vertical-align: top;
+}
+
+#ac-globalnav .ac-gn-link{
+    font-family: "SF Pro SC","HanHei SC","SF Pro Text",
+    "Myriad Set Pro","SF Pro Icons","PingFang SC","Helvetica Neue",
+    "Helvetica","Arial",sans-serif;
+    letter-spacing: 0em;
+}
+
+#ac-globalnav .ac-gn-link{
+    font-size: 14px;
+    line-height: 3.14286;
+    font-weight: 400;
+    color: #fff;
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    padding: 0 10px;
+    height: 44px;
+    opacity: 1;
+    background-repeat: no-repeat;
+    white-space: nowrap;
+}
+.main .hero-section [data-unit-id] .unit-image{
+    z-index: 1;
+    position: absolute;
+    border: 0;
+    left: calc(50% + 0px);
+    right: auto;
+    bottom: 0px;
+    top: auto;
+    -webkit-transform: translatex(-50%);
+    transform: translatex(-50%);
+}
+
+.main .hero-section [data-unit-id] .unit-image.unit-image-iphone-xs-iphone-xs{
+    width: 972px;
+    height: 337px;
+    background-size: 972px 337px;
+    background-repeat: no-repeat;
+    background-image: url(../webapp/static/image/123123.jpg);}
+
+.adv-wrapper{
+    background: #444;
+    width: 100%;
+    right: 0;
+    height: 40px;
+}
+
+.adv-wrapper{
+    top: 0;
+    position: fixed;
+    z-index: 10001;
+}
+
+.adv-wrapper .adv-wrapper-text{
+    color: #a8a8aa;
+    font-size: 12px;
+    font-family: "SF Pro SC", "HanHei SC", "SF Pro Text", "Myriad Set Pro",
+    "PingFang SC", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.adv-wrapper .adv-wrapper-text{
+    line-height: 40px;
+    text-align: right;
+    max-width: 976px;
+    margin: 0 auto;
+    text-overflow: ellipsis;
+}
+
+@media only screen and (max-width: 1023px){
+    .adv-wrapper .adv-wrapper-text{
+        margin-left: auto;
+        width: auto;
+        padding: 0 22px;
+        position: relative;
+        left: 0;
+    }
+}
+#ac-globalnav{
+    position: fixed;
+    font-family: "SF Pro SC","HanHei SC","SF Pro Text","Myriad Set Pro",
+    "SF Pro Icons","PingFang SC","Helvetica Neue",
+    "Helvetica","Arial",sans-serif;
+    top: 40px;
+    z-index: 9999;
+}
+
+#ac-globalnav{
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 48px;
+    max-height: 44px;
+    background: rgba(0,0,0,0.8);
+    font-size: 17px;
+    user-select: none;
+}
+
+#ac-globalnav, #ac-globalnav input{
+    direction: ltr;
+    text-align: left;
+}
+
+#ac-globalnav .ac-gn-content{
+    margin: 0 auto;
+    max-width: 980px;
+    padding: 0 22px;
+    position: relative;
+    z-index: 2;
+}

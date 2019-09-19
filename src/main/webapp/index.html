@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
+    <meta name="renderer" content="webkit"/>
+    <link rel="shortcut icon" href="/static/image/logo.png"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-transform"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+    <title>主页</title>
+    <!-- Bootstrap -->
+    <link href="static/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <!--    <link href="//cdn.bootcss.com/highlight.js/9.9.0/styles/xcode.min.css" rel="stylesheet"/>-->
+    <link href="static/user/css/style.css" rel="stylesheet"/>
+
+
+    <style>
+        body {
+            background: #f7f7f7;
+        }
+
+        .post_item {
+            padding: 35px;
+            background: #ffffff;
+            margin-bottom: 35px;
+            /*position: relative;*/
+            /*overflow: hidden;*/
+        }
+    </style>
+</head>
+
+<body>
+
+<header id="header" class="header bg-white">
+    <div class="navbar-container">
+        <a href="index.html" class="navbar-logo">
+            <img src="./static/image/logo.png" alt="首页"/>
+        </a>
+        <div class="navbar-menu">
+            <a href="archives.html">归档</a>
+            <a href="about.html">关于</a>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="index-page clearfix">
+        <div class="row">
+            <div id="article">
+                <div class="text-left post_item">
+                    <a href="post.html">
+                        <h1>Bootstrap使用指南</h1>
+                    </a>
+                    <div class="post_content">
+                        <p>
+                            Bootstrap是美国Twitter公司的设计师Mark Otto和Jacob Thornton合
+                        </p>
+                        <p>
+                            更新时间：2019年4月26日19:42:33
+                        </p>
+                    </div>
+                </div>
+
+
+            </div>
+            <nav class="text-center">
+                <ul class="pagination" id="paging_toolbar">
+                    <li><a href="#" aria-label="Previous"><span aria-hidden="true">上一页</span></a></li>
+                    <li class="active"><a href="#">1<span class="sr-only">(current)</span></a></li>
+                    <li class=""><a href="#">2<span class="sr-only">(current)</span></a></li>
+                    <li class=""><a href="#">3<span class="sr-only">(current)</span></a></li>
+                    <li class=""><a href="#">4<span class="sr-only">(current)</span></a></li>
+                    <li class=""><a href="#">5<span class="sr-only">(current)</span></a></li>
+                    <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">下一页</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<!--<section class="product iphone-x">
+    <h1>Hemwick</h1>
+    <h2>Please give me a job!please!</h2>
+    <div class="links"><a href="#" class="learn-more" data-target="#cv_modal" data-toggle="modal">查看简历<i class="fa fa-angle-right"></i></a><a href="#" data-target="#contact_modal" data-toggle="modal">录用<i class="fa fa-angle-right"></i></a></div><img class="img-fluid" src="./static/image/iphone_x_largetall.jpg"></section>
+<section class="product ipad">
+    <h1>Java程序工程师</h1>
+    <h2>Like a programer. Unlike any programer.</h2>
+    <div class="links"><a href="#" class="learn-more" data-target="#cv_modal" data-toggle="modal">查看简历<i class="fa fa-angle-right"></i></a><a href="#" data-target="#contact_modal" data-toggle="modal">录用<i class="fa fa-angle-right"></i></a></div><img class="img-fluid" src="./static/image/ipad_largetall.jpg"></section>
+<section class="product macbook-pro dark">
+    <h1>Hemwick Pro</h1>
+    <h2>More power. More performance. More pro.</h2>
+    <div class="links small-link-margin"><a href="#" class="learn-more" data-target="#cv_modal" data-toggle="modal">查看简历<i class="fa fa-angle-right"></i></a><a href="#" data-target="#contact_modal" data-toggle="modal">录用<i class="fa fa-angle-right"></i></a></div><img class="img-fluid" src="./static/image/macbook_pro_performance_largetall.png"></section>-->
+<!--<div class="row no-gutters products-grid">
+    <div class="col-md-6">
+        <div class="product-small" style="background-image:url(&quot;./static/image/shop_for_college_large.jpg&quot;);background-position:center;background-size:cover;background-repeat:no-repeat;">
+            <h3>Turn up summer</h3>
+            <h4>Buy a Mac or iPad Pro for college.<br>&nbsp;Get Beats on us.<br></h4>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="product-small behind-the-mac dark" style="background-image:url(&quot;./static/image/behind_the_mac_boniface_large.jpg&quot;);background-position:center;background-size:cover;background-repeat:no-repeat;">
+            <h3>Behind the Mac</h3>
+            <div class="links small-link-margin"><a href="#" class="learn-more">Watch the film &nbsp;<i class="fa fa-play-circle-o"></i></a><a href="#">Explore Mac&nbsp;<i class="fa fa-angle-right"></i></a></div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="product-small iphone-8" style="background-position:center;background-size:cover;background-repeat:no-repeat;">
+            <h3>iPhone 8</h3>
+            <h4>A new generation of iPhone.</h4>
+            <div class="links small-link-margin"><a href="#" class="learn-more">Learn more&nbsp;<i class="fa fa-angle-right"></i></a><a href="#">Buy&nbsp;<i class="fa fa-angle-right"></i></a></div><img src="./static/image/iphone_8_large.jpg" class="iphone"></div>
+    </div>
+    <div class="col-md-6">
+        <div class="product-small dark" style="background-position:center;background-size:cover;background-repeat:no-repeat;background-image:url(&quot;./static/image/how_to_shoot_large.jpg&quot;);">
+            <h3>How to shoot on iPhone</h3>
+            <h4>Make the beautiful game even more beautiful.</h4>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="product-small air-pods" style="background-position:center;background-size:cover;background-repeat:no-repeat;">
+            <h3>AirPods</h3>
+            <h4>Wireless Efforless.Magical.</h4>
+            <div class="links small-link-margin"><a href="#" class="learn-more">Learn more&nbsp;<i class="fa fa-angle-right"></i></a><a href="#">Buy&nbsp;<i class="fa fa-angle-right"></i></a></div><img src="./static/image/airpods_large.jpg" class="iphone"></div>
+    </div>
+    <div class="col-md-6">
+        <div class="product-small apple-watch" style="background-position:center;background-size:cover;background-repeat:no-repeat;">
+            <h3><i class="fa fa-apple"></i>WATCH</h3>
+            <h5>SERIES 5</h5>
+            <h4>The freedom of cellular.</h4>
+            <div class="links small-link-margin"><a href="#" class="learn-more">Learn more&nbsp;<i class="fa fa-angle-right"></i></a><a href="#">Buy&nbsp;<i class="fa fa-angle-right"></i></a></div><img src="./static/image/watch_series_3_large.jpg" class="iphone"></div>
+    </div>
+</div>-->
+<div class="modal fade" id="cv_modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">编辑</h4>
+            </div>
+            <div class="modal-body form-horizontal">
+                <form id="categoryForm">
+                    <input type="hidden" id="id">
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">分类名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="分类名称">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="col-sm-2 control-label">分类描述</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="description" name="description"
+                                   placeholder="分类描述">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="saveBtn">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="contact_modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">联系方式</h4>
+            </div>
+            <div class="modal-body form-horizontal">
+                <form >
+                    <input type="hidden">
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">电话号</label>
+                        <div class="col-sm-10">
+                            <span>13218090371</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="col-sm-2 control-label">邮箱</label>
+                        <div class="col-sm-10">
+                            <span>846704757@qq.com</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="col-sm-2 control-label">QQ</label>
+                        <div class="col-sm-10">
+                            <span>846704757</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="col-sm-2 control-label">微信</label>
+                        <div class="col-sm-10">
+                            <span>fang67954088</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="saveBtn">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer bg-white">
+    <div class="footer-meta">
+        <div class="footer-container">
+            <div class="meta-item meta-copyright">
+                <div class="meta-copyright-info">
+                    <div class="info-text">
+                        <p>
+                            &copy; 版权所有
+                            <a href="#" target="_blank" rel="nofollow">我的博客</a>
+                            保留一切权利
+                        </p>
+                        <br/>
+                        <p>备1111号</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</footer>
+<script src="static/plugins/jquery/jquery-3.4.0.js"></script>
+<script src="static/plugins/bootstrap/js/bootstrap.js"></script>
+<script src="static/js/base.js"></script>
+<script>
+    $(function () {
+        loadArticle();
+    });
+    function loadArticle(page) {
+        $.ajax({
+            url:getRootPath()+'/getArticle',
+            data:{page:page},
+            method:'get',
+            dataType:'json',
+            success:function (res) {
+                var aList=res.list;
+                var articleHtml='';
+                for (var i =0;i<aList.length;i++){
+                    articleHtml+='<div class="text-left post_item">';
+                    articleHtml+='<a href="post.html?aid='+aList[i].id+'">';
+                    articleHtml+='<h1>'+aList[i].title+'</h1>';
+                    articleHtml+='</a>';
+                    articleHtml+='<div class ="post_content">';
+                    articleHtml+='<p>'+aList[i].intro+'</p>';
+                    articleHtml+='<p>更新时间:'+aList[i].created+'</p>';
+                    articleHtml+='</div></div>';
+                }
+                $('#article').empty().append(articleHtml);
+
+                var pageHtml='';
+                if (res.pages>1) {
+                    if (res.hasPreviousPage) {
+                        pageHtml += '<li><a href="javascript:;" onclick="loadArticle('+(res.pageNum-1)+')" aria-label="Previous"><span aria-hidden="true">上一页</span></a></li>'
+                    }
+                    var pageNums = res.navigatepageNums;
+                    for (var i =0;i<pageNums.length;i++){
+                        var active='';
+                        if (pageNums[i]==res.pageNum){
+                            active='active';
+                        }
+                        pageHtml += '<li class="' + active + '"><a href="javascript:;" onclick="loadArticle(' + (pageNums[i]) + ')">' + pageNums[i] + '<span class="sr-only">(current)</span></a></li>';
+
+                    }
+
+                    if (res.hasNextPage) {
+                        pageHtml += ' <li><a href="javascript:;" onclick="loadArticle(' + (res.pageNum + 1) + ')" aria-label="Previous"><span aria-hidden="true">下一页</span></a></li>';
+
+                    }
+                }
+                $('#paging_toolbar').empty().append(pageHtml);
+            },
+            error:function (e) {
+                alert('获取文章列表异常，稍后再试');
+                console.log(e);
+            }
+        });
+    }
+</script>
+</body>
+</html>

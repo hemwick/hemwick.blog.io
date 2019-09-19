@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+">
+
+    <!--配置扫描路径-->
+    <context:component-scan base-package="com.pujiang.blog"/>
+    <!--开启springmvc的注解功能-->
+    <mvc:annotation-driven />
+    <!--引入数据库配置文件-->
+    <context:property-placeholder location="classpath:db.properties"/>
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+    <!--配置sqlsessionfactory组件-->
+    <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/><!--引入数据源-->
+        <property name="typeAliasesPackage" value="com.pujiang.blog.bean"/><!--设置实体类别名-->
+        <!--引入分页工具类-->
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageHelper">
+                    <property name="properties">
+                        <value>dialect=mysql</value>
+                    </property>
+                </bean>
+            </array>
+        </property>
+    </bean>
+
+    <!--配置mapper.xml自动转换为接口的实现类-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.pujiang.blog.mapper"/><!--指定mapper路径-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryBean"/>
+    </bean>
+    <!--配置Spring事务管理器-->
+    <bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="transactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--启用事务注解-->
+    <tx:annotation-driven />
+    <!--配置JSON转换器，解决AJAX请求JSON时有时会直接下载JSON文件的问题-->
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/html;charset=utf-8</value>
+                        <value>application/json;charset=utf-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+    <!--过滤静态资源-->
+    <mvc:default-servlet-handler />
+    <!--配置上传组件-->
+    <bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver"/>
+    <!--配置验证码组件-->
+    <bean class="com.google.code.kaptcha.impl.DefaultKaptcha">
+        <property name="config">
+            <bean class="com.google.code.kaptcha.util.Config">
+                <constructor-arg><!--构造方法注入-->
+                    <props>
+                        <prop key="kaptcha.image.width">100</prop>
+                        <prop key="kaptcha.image.height">50</prop>
+                        <prop key="kaptcha.noise.impl">com.google.code.kaptcha.impl.NoNoise</prop>
+                        <prop key="kaptcha.textproducer.char.string">
+                            123456789abcdefghijklmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ
+                        </prop>
+                        <prop key="kaptcha.textproducer.char.length">4</prop>
+                    </props>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+    <!--登录状态监听器-->
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--黑名单-->
+            <mvc:mapping path="/admin/**"/>
+            <!--白名单-->
+            <mvc:exclude-mapping path="/admin/login.html" />
+            <mvc:exclude-mapping path="/admin/logout"/>
+            <!--配置监听器-->
+            <bean class="com.pujiang.blog.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+</beans>

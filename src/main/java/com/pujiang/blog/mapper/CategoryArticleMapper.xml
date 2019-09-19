@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pujiang.blog.mapper.CategoryArticleMapper" >
+  <resultMap id="BaseResultMap" type="com.pujiang.blog.bean.CategoryArticle" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="aid" property="aid" jdbcType="INTEGER" />
+    <result column="cid" property="cid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, aid, cid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from category_article
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from category_article
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pujiang.blog.bean.CategoryArticle" >
+    insert into category_article (id, aid, cid)
+    values (#{id,jdbcType=INTEGER}, #{aid,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pujiang.blog.bean.CategoryArticle" >
+    insert into category_article
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="aid != null" >
+        aid,
+      </if>
+      <if test="cid != null" >
+        cid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="aid != null" >
+        #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pujiang.blog.bean.CategoryArticle" >
+    update category_article
+    <set >
+      <if test="aid != null" >
+        aid = #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="cid != null" >
+        cid = #{cid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pujiang.blog.bean.CategoryArticle" >
+    update category_article
+    set aid = #{aid,jdbcType=INTEGER},
+      cid = #{cid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <insert id="batchInsert" parameterType="list">
+    insert into category_article(aid,cid) values
+    <foreach collection="list" item="ca" separator=",">
+      (#{ca.aid},#{ca.cid})
+    </foreach>
+  </insert>
+
+  <select id="getInfoByAid" parameterType="int" resultType="CategoryArticle">
+    select ca.*,c.name cname from category_article ca,category c where ca.cid=c.id and ca.aid=#{aid}
+  </select>
+
+  <delete id="deleteByAid" parameterType="int">
+    delete from category_article where aid=#{aid}
+  </delete>
+
+  <select id="getCountByCid" parameterType="int" resultType="int">
+    select count(id) count from category_article where cid=#{cid}
+  </select>
+</mapper>

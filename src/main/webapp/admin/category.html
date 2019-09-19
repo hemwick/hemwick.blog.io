@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>分类管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta content="Coderthemes" name="author"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <link rel="shortcut icon" href="../static/image/logo.png"/>
+    <link rel="stylesheet" href="../static/plugins/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/plugins/bootstrap-table/bootstrap-table.css">
+    <link rel="stylesheet" href="../static/plugins/bootstrap-validator/css/bootstrapValidator.css">
+    <link rel="stylesheet" href="../static/plugins/font-awesome-4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+
+</head>
+
+<body class="fixed-left">
+<div id="wrapper">
+    <div>
+        <div class="topbar">
+            <div class="topbar-left">
+                <div class="text-center p-t-10" style="margin: 0 auto;">
+                    <div class="pull-left" style="padding-left: 10px;">
+                        <a href="/admin/index.html">
+                            <img src="../static/image/logo.png" width="50" height="50"/>
+                        </a>
+                    </div>
+                    <div class="pull-left" style="padding-left: 10px;">
+                        <span style="font-size: 20px; color: #2f353f; line-height: 50px;">我的博客</span>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar navbar-default" role="navigation">
+                <div class="container">
+                    <div class="">
+                        <div class="pull-left">
+                            <button type="button" class="button-menu-mobile open-left">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <span class="clearfix"></span>
+                        </div>
+
+                        <ul class="nav navbar-nav navbar-right pull-right">
+                            <li class="dropdown">
+                                <a href="/admin/index.html" class="dropdown-toggle profile" data-toggle="dropdown"
+                                   aria-expanded="true">
+                                    <span class="glyphicon glyphicon-user"/>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="javascript:void(0);" onclick="logout()"><i class="fa fa-sign-out"></i>
+                                        注销</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="left side-menu">
+            <div class="sidebar-inner slimscrollleft">
+                <div id="sidebar-menu">
+                    <ul>
+                        <li>
+                            <a id="index" href="index.html" class="waves-effect">
+                                <i class="fa fa-dashboard" aria-hidden="true"></i>
+                                <span> 仪表盘 </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a id="article_edit" href="article_edit.html" class="waves-effect">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                <span> 发布文章 </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="article_list.html" class="waves-effect">
+                                <i class="fa fa-list" aria-hidden="true"></i>
+                                <span> 文章管理 </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="comment_list.html" class="waves-effect">
+                                <i class="fa fa-comments" aria-hidden="true"></i>
+                                <span> 评论管理 </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="category.html" class="waves-effect active">
+                                <i class="fa fa-tags" aria-hidden="true"></i>
+                                <span> 分类/标签 </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="file.html" class="waves-effect">
+                                <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                                <span> 文件管理 </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="user.html" class="waves-effect">
+                                <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                                <span> 用户管理 </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-page">
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                        <div class="panel-heading">分类查询</div>
+                        <div class="panel-body">
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <label for="sname">分类名</label>
+                                    <input type="text" class="form-control" id="sname" placeholder="请输入类别名称">
+                                </div>
+                                <button type="button" class="btn btn-default" id="searchBtn">查询</button>
+                                <button type="button" class="btn btn-default" id="clearBtn">清空</button>
+                            </form>
+                        </div>
+                        </div>
+                        <div id="toolbar">
+                            <button type="button" data-target="#edit_modal" data-toggle="modal" class="btn btn-primary">添加</button>
+                        </div>
+
+                        <table id="infoTable"></table>
+                    </div>
+                </div>
+                <!--页脚-->
+                <div>
+                    <footer class="footer text-right">
+                        2019 © <a href="#" target="_blank">我的博客</a>
+                        <div class=""></div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="edit_modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">编辑</h4>
+                    </div>
+                    <div class="modal-body form-horizontal">
+                        <form id="categoryForm">
+                        <input type="hidden" id="id">
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">分类名称</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="分类名称">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="col-sm-2 control-label">分类描述</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="description" name="description"
+                                       placeholder="分类描述">
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" id="saveBtn">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<!--所有页面必须导入start-->
+<script src="../static/plugins/jquery/jquery-3.4.0.js"></script>
+<script src="../static/plugins/jquery/jquery.app.js"></script>
+<script src="../static/plugins/bootstrap/js/bootstrap.js"></script>
+<script src="../static/js/base.js"></script>
+<!--所有页面必须导入end-->
+<script src="../static/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="../static/plugins/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+<script src="../static/plugins/bootstrap-validator/js/bootstrapValidator.js"></script>
+<script src="../static/plugins/bootstrap-validator/js/language/zh_CN.js"></script>
+</body>
+<script>
+    $(function () {
+        /*监听模态窗打开事件*/
+        $('#edit_modal').on('show.bs.modal',function (event) {
+            var id = $(event.relatedTarget).data("id");//获取按钮上携带的ID的值，自动寻找data-id中这个属性
+            if (id){/*条件成立表示修改操作*/
+                $.ajax({
+                   url:getRootPath()+'/admin/category/getById',
+                   data:{id:id},
+                   method:'get',
+                   dataType:'json',
+                   success:function (res) {
+                       $('#name').val(res.name);
+                       $('#description').val(res.description);
+                       $('#id').val(res.id);
+                   },
+                    error:function (e) {
+                        alert("获取用户信息时异常，请稍后再试");
+                        console.log(e);
+                    }
+                });
+            }
+        });
+        /*监听模态窗关闭事件*/
+        $('#edit_modal').on('hidden.bs.modal', function () {
+            /*销毁验证插件*/
+            $('#categoryForm').data('bootstrapValidator').destroy();
+            $('#categoryForm').data('bootstrapValidator', null);
+            /*重新初始化验证插件！！！！！！！！！！！*/
+            formValidator();
+        });
+        /*提交数据*/
+        $('#saveBtn').click(function () {
+            var bootstrapValidator = $('#categoryForm').data('bootstrapValidator');
+            bootstrapValidator.validate();
+            if (bootstrapValidator.isValid()) {
+                $.ajax({
+                    url:getRootPath()+'/admin/category/saveInfo',
+                    data:{
+                        name:$('#name').val(),
+                        description:$('#description').val(),
+                        id:$('#id').val()
+                    },
+                    method:'post',
+                    dataType:'json',
+                    success:function (res) {
+                        if (res.code==1){
+                            alert('更新成功');
+                            /*关闭模块窗*/
+                            $('#edit_modal').modal('hide');
+                            /*刷新表格*/
+                            $('#infoTable').bootstrapTable('refresh');
+                        } else {
+                            alert('更新失败');
+                        }
+                    },
+                    error:function (e) {
+                        alert("更新分类信息时出现异常，请稍后再试...");
+                        console.log(e);
+                    }
+                });
+            }
+        });
+        /*初始化验证插件*/
+        formValidator();
+        /*模糊查询*/
+        $('#searchBtn').click(function () {
+            var sname=$('#sname').val();
+            $('#infoTable').bootstrapTable('refresh',{
+                query:{
+                    name:sname
+                }
+            });
+        });
+        /*清空按钮*/
+        $('#clearBtn').click(function () {
+            $('#sname').val('');
+        });
+        /*初始化数据表格*/
+        $('#infoTable').bootstrapTable({
+            url: getRootPath()+'/admin/category/getPage?r='+Math.random(),
+            method: 'get',
+            striped: true, //是否开启各行换色
+            cache: false,  //是否开启数据缓存
+            showRefresh: true,//是否开启刷新按钮
+            sidePagination: 'server',       //服务端分页
+            pageNumber: 1,                  //默认加载第一页
+            pagination: true,               //是否显示分页
+            pageSize: 5,                    //每页显示条数
+            pageList:[5,10,20,30,50],       //可供选择的每页行数
+            toolbar: '#toolbar',
+            columns: [     //设置每一列的信息
+                {field: 'id', title: '编号'},
+                {field: 'name', title: '类别'},
+                {field: 'description', title: '描述'},
+                {field: 'opt', title: '操作', formatter: optFun}
+            ]
+        });
+
+    });
+    /*格式化输出操作列*/
+    function optFun(value,rows) {
+        return '<button type="button" data-id="'+rows.id+'" data-target="#edit_modal" data-toggle="modal" class="btn btn-primary" >修改</button> <button type="button" class="btn btn-danger" onclick="deleteCategory('+rows.id+')">删除</button>';
+    }
+    function deleteCategory(id) {
+        $.get(getRootPath()+'/admin/category/getCountByCid?cid='+id,function (res) {
+            console.log(res);
+            if (res.code>0){
+                alert('该分类已发布文章，暂时不可删除')
+            }else {
+                if (confirm('确定删除本数据？')){
+                    $.getJSON(getRootPath()+'/admin/category/delete',{id:id},function (res) {
+                        if (res.code==1){
+                            alert('删除数据成功！');
+                            $('#infoTable').bootstrapTable('refresh');
+                        } else{
+                            alert('删除数据失败！');
+                        }
+                    });
+                }
+            }
+        });
+    }
+    /*初始化验证插件*/
+    function formValidator(){
+        $('#categoryForm').bootstrapValidator({
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',             //验证成功状态
+                invalid: 'glyphicon glyphicon-remove',       //验证失败状态
+                validating: 'glyphicon glyphicon-refresh'    //正在验证状态
+            },
+            /*配置要验证的属性*/
+            fields: {
+                /*根据username属性*/
+                name: {
+                    validators: {
+                        notEmpty: {
+                            message: '分类名不能为空'
+                        }
+                    }
+                }
+            }
+        });
+    }
+</script>
+</html>

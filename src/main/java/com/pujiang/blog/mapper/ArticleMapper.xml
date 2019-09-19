@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pujiang.blog.mapper.ArticleMapper" >
+  <resultMap id="BaseResultMap" type="com.pujiang.blog.bean.Article" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="intro" property="intro" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="hits" property="hits" jdbcType="INTEGER" />
+    <result column="comment" property="comment" jdbcType="INTEGER" />
+    <result column="created" property="created" jdbcType="VARCHAR" />
+    <result column="updated" property="updated" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.pujiang.blog.bean.Article" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, title, intro, status, hits, comment, created, updated
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from article
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from article
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pujiang.blog.bean.Article" >
+    insert into article (id, title, intro, 
+      status, hits, comment, 
+      created, updated, content
+      )
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{intro,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{hits,jdbcType=INTEGER}, #{comment,jdbcType=INTEGER}, 
+      #{created,jdbcType=VARCHAR}, #{updated,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pujiang.blog.bean.Article" keyProperty="id" useGeneratedKeys="true">
+    insert into article
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="intro != null" >
+        intro,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="hits != null" >
+        hits,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="updated != null" >
+        updated,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="intro != null" >
+        #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="hits != null" >
+        #{hits,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=INTEGER},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=VARCHAR},
+      </if>
+      <if test="updated != null" >
+        #{updated,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pujiang.blog.bean.Article" >
+    update article
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="intro != null" >
+        intro = #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="hits != null" >
+        hits = #{hits,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=INTEGER},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=VARCHAR},
+      </if>
+      <if test="updated != null" >
+        updated = #{updated,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.pujiang.blog.bean.Article" >
+    update article
+    set title = #{title,jdbcType=VARCHAR},
+      intro = #{intro,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      hits = #{hits,jdbcType=INTEGER},
+      comment = #{comment,jdbcType=INTEGER},
+      created = #{created,jdbcType=VARCHAR},
+      updated = #{updated,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pujiang.blog.bean.Article" >
+    update article
+    set title = #{title,jdbcType=VARCHAR},
+      intro = #{intro,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      hits = #{hits,jdbcType=INTEGER},
+      comment = #{comment,jdbcType=INTEGER},
+      created = #{created,jdbcType=VARCHAR},
+      updated = #{updated,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="getAll" parameterType="Article" resultType="Article">
+    select * from article
+    <where>
+      <if test="title!=null and title!=''">
+        and title like concat('%',#{title},'%')
+      </if>
+      <if test="status!=null">
+        and status =#{status}
+      </if>
+      <if test="created!=null and created!='' and updated!=null and updated!=''">
+        and created between #{created} and #{updated}
+      </if>
+    </where>
+    order by created desc
+  </select>
+</mapper>

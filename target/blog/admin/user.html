@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>用户管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta content="Coderthemes" name="author"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <link rel="shortcut icon" href="../static/image/logo.png"/>
+    <link rel="stylesheet" href="../static/plugins/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/plugins/bootstrap-table/bootstrap-table.css">
+    <link rel="stylesheet" href="../static/plugins/bootstrap-validator/css/bootstrapValidator.css">
+    <link rel="stylesheet" href="../static/plugins/font-awesome-4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+
+    <style>
+        .label {
+            margin-left: 10px;
+        }
+
+        .table tbody tr td {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class="fixed-left">
+<div id="wrapper">
+    <!--头部和左边菜单-->
+    <div>
+        <div class="topbar">
+            <div class="topbar-left">
+                <div class="text-center p-t-10" style="margin: 0 auto;">
+                    <div class="pull-left" style="padding-left: 10px;">
+                        <a href="/admin/index.html">
+                            <img src="../static/image/logo.png" width="50" height="50"/>
+                        </a>
+                    </div>
+                    <div class="pull-left" style="padding-left: 10px;">
+                        <span style="font-size: 20px; color: #2f353f; line-height: 50px;">我的博客</span>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar navbar-default" role="navigation">
+                <div class="container">
+                    <div class="">
+                        <div class="pull-left">
+                            <button type="button" class="button-menu-mobile open-left">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <span class="clearfix"></span>
+                        </div>
+
+                        <ul class="nav navbar-nav navbar-right pull-right">
+                            <li class="dropdown">
+                                <a href="/admin/index.html" class="dropdown-toggle profile" data-toggle="dropdown"
+                                   aria-expanded="true">
+                                    <span class="glyphicon glyphicon-user"/>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="javascript:void(0);" onclick="logout()"><i class="fa fa-sign-out"></i>
+                                        注销</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="left side-menu">
+            <div class="sidebar-inner slimscrollleft">
+                <div id="sidebar-menu">
+                    <ul>
+                        <li>
+                            <a id="index" href="index.html" class="waves-effect ">
+                                <i class="fa fa-dashboard" aria-hidden="true"></i>
+                                <span> 仪表盘 </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a id="article_edit" href="article_edit.html" class="waves-effect">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                <span> 发布文章 </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="article_list.html" class="waves-effect active">
+                                <i class="fa fa-list" aria-hidden="true"></i>
+                                <span> 文章管理 </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="comment_list.html" class="waves-effect">
+                                <i class="fa fa-comments" aria-hidden="true"></i>
+                                <span> 评论管理 </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="category.html" class="waves-effect">
+                                <i class="fa fa-tags" aria-hidden="true"></i>
+                                <span> 分类/标签 </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="file.html" class="waves-effect">
+                                <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                                <span> 文件管理 </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="user.html" class="waves-effect">
+                                <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                                <span> 用户管理 </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-page">
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">用户查询</div>
+                            <div class="panel-body">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <label for="uname">用户名</label>
+                                        <input type="text" class="form-control" id="uname" placeholder="请输入用户名称">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="rname">真实姓名</label>
+                                        <input type="text" class="form-control" id="rname" placeholder="请输入真实姓名">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phonenum">联系电话</label>
+                                        <input type="text" class="form-control" id="phonenum" placeholder="请输入手机号">
+                                    </div>
+                                    <button type="button" class="btn btn-default" id="searchBtn">查询</button>
+                                    <button type="button" class="btn btn-default" id="clearBtn">清空</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div id="toolbar">
+                            <button type="button" data-target="#edit_modal" data-toggle="modal" class="btn btn-primary">增加用户</button>
+                        </div>
+
+                        <table id="userTable">
+
+                        </table>
+                    </div>
+                </div>
+                <div>
+                    <footer class="footer text-right">
+                        2019 © <a href="#" target="_blank">Blog</a>
+                        <div class=""></div>
+                    </footer>
+                </div>
+            </div>
+            <div class="modal fade" id="edit_modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">添加用户</h4>
+                        </div>
+                        <div class="modal-body form-horizontal">
+                            <form id="userForm">
+                                <input type="hidden" id="id">
+                                <div class="form-group">
+                                    <label for="username" class="col-sm-2 control-label">用户名</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="username" name="username" placeholder="请输入用户名称">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="realname" class="col-sm-2 control-label">真实姓名</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="realname" name="realname"
+                                               placeholder="请输入真实姓名">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="col-sm-2 control-label">密码</label>
+                                    <div class="col-sm-10">
+                                        <input type="password" class="form-control" id="password" name="password"
+                                               placeholder="请输入密码">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="repassword" class="col-sm-2 control-label">确认密码</label>
+                                    <div class="col-sm-10">
+                                        <input type="password" class="form-control" id="repassword" name="repassword"
+                                               placeholder="请再次输入密码">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone" class="col-sm-2 control-label">手机号码</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="phone" name="phone"
+                                               placeholder="请输入手机号码">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary" id="saveBtn">保存</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--所有页面必须导入start-->
+<script src="../static/plugins/jquery/jquery-3.4.0.js"></script>
+<script src="../static/plugins/jquery/jquery.app.js"></script>
+<script src="../static/plugins/bootstrap/js/bootstrap.js"></script>
+<script src="../static/js/base.js"></script>
+<!--所有页面必须导入end-->
+<script src="../static/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="../static/plugins/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+<script src="../static/plugins/bootstrap-validator/js/bootstrapValidator.js"></script>
+<script src="../static/plugins/bootstrap-validator/js/language/zh_CN.js"></script>
+<script>
+    $(function () {
+        /*监听模态窗打开事件*/
+        $('#edit_modal').on('show.bs.modal',function (event) {
+            var id = $(event.relatedTarget).data("id");//获取按钮上携带的ID的值，自动寻找data-id中这个属性
+            if (id){/*条件成立表示修改操作*/
+                $.ajax({
+                    url:getRootPath()+'/admin/user/getById',
+                    data:{id:id},
+                    method:'get',
+                    dataType:'json',
+                    success:function (res) {
+                        $('#username').val(res.username);
+                        $('#realname').val(res.realname);
+                        $('#password').val(res.password);
+                        $('#phone').val(res.phone);
+                        $('#id').val(res.id);
+                        $('#username').attr("readonly","readonly")
+                    },
+                    error:function (e) {
+                        alert("获取用户信息时异常，请稍后再试");
+                        console.log(e);
+                    }
+                });
+            }
+        });
+        $('#edit_modal').on('hidden.bs.modal', function () {
+            /*销毁验证插件*/
+            $('#userForm').data('bootstrapValidator').destroy();
+            $('#userForm').data('bootstrapValidator', null);
+            /*重新初始化验证插件！！！！！！！！！！！*/
+            formValidator();
+        });
+        $('#saveBtn').click(function () {
+            var bootstrapValidator = $('#userForm').data('bootstrapValidator');
+            bootstrapValidator.validate();
+            if (bootstrapValidator.isValid()) {
+                $.ajax({
+                    url:getRootPath()+'/admin/user/saveInfo',
+                    data:{
+                        username:$('#username').val(),
+                        realname:$('#realname').val(),
+                        password:$('#password').val(),
+                        phone:$('#phone').val(),
+                        id:$('#id').val()
+                    },
+                    method:'post',
+                    dataType:'json',
+                    success:function (res) {
+                        if (res.code==1){
+                            alert('更新成功');
+                            /*关闭模块窗*/
+                            $('#edit_modal').modal('hide');
+                            /*刷新表格*/
+                            $('#userTable').bootstrapTable('refresh');
+                        } else {
+                            alert('更新失败');
+                        }
+                    },
+                    error:function (e) {
+                        alert("更新分类信息时出现异常，请稍后再试...");
+                        console.log(e);
+                    }
+                });
+            }
+        });
+        formValidator();
+        /*模糊查询*/
+        $('#searchBtn').click(function () {
+            var uname = $('#uname').val();
+            var rname = $('#rname').val();
+            var phonenum = $('#phonenum').val();
+            $('#userTable').bootstrapTable('refresh',{
+                query:{
+                    username:uname,
+                    realname:rname,
+                    phone:phonenum
+                }
+            });
+        });
+        /*清空按钮*/
+        $('#clearBtn').click(function () {
+            $('#uname').val('');
+            $('#rname').val('');
+            $('#phonenum').val('');
+        });
+        /*初始化数据表格*/
+        $('#userTable').bootstrapTable({
+            url: getRootPath()+'/admin/user/getPage?r='+Math.random(),
+            method: 'get',
+            striped: true, //是否开启各行换色
+            cache: false,  //是否开启数据缓存
+            showRefresh: true,//是否开启刷新按钮
+            sidePagination: 'server',       //服务端分页
+            pageNumber: 1,                  //默认加载第一页
+            pagination: true,               //是否显示分页
+            pageSize: 5,                    //每页显示条数
+            pageList:[5,10,20,30,50],       //可供选择的每页行数
+            toolbar: '#toolbar',
+            columns: [     //设置每一列的信息
+                {field: 'id', title: '编号'},
+                {field: 'username', title: '用户姓名'},
+                {field: 'password', title: '密码'},
+                {field: 'realname', title: '真实姓名'},
+                {field: 'phone', title: '联系方式'},
+                {field: 'opt', title: '操作', formatter: optFun}
+            ]
+        });
+    });
+    /*格式化输出操作列*/
+    function optFun(value,rows) {
+        return '<button type="button" data-id="'+rows.id+'" data-target="#edit_modal" data-toggle="modal" class="btn btn-primary" >修改</button> <button type="button" class="btn btn-danger" onclick="deleteUser('+rows.id+')">删除</button>';
+    }
+    /*删除用户，且管理员不可被删除*/
+    function deleteUser(id) {
+                if (confirm('确定删除本数据？')){
+                    if (id!=1){
+                    $.get(getRootPath()+'/admin/user/delete',{id:id},function (res) {
+                        if (res.code==1){
+                            alert('删除数据成功！');
+                            $('#userTable').bootstrapTable('refresh');
+                        } else{
+                            alert('删除数据失败！');
+                        }
+                    });
+                }else {
+                        alert('管理员不可删除');
+                    }
+                }
+    }
+    /*初始化验证插件*/
+    function formValidator() {
+        $('#userForm').bootstrapValidator({
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',             //验证成功状态
+                invalid: 'glyphicon glyphicon-remove',       //验证失败状态
+                validating: 'glyphicon glyphicon-refresh'    //正在验证状态
+            },
+            /*配置要验证的属性*/
+            fields : {
+                username: {
+                    message: '账号验证失败',
+                    validators: {
+                        notEmpty: {
+                            message: '账号不能为空'
+                        },
+                        stringLength: {
+                            min: 5,
+                            max: 18,
+                            message: '账号长度必须为5到18之间'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_]+$/,
+                            message: '账号只能包含大写、小写、数字和下划线'
+                        }
+
+                    }
+
+                },
+
+
+                phone: {
+                    message: 'The phone is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: '手机号码不能为空'
+                        },
+                        stringLength: {
+                            min: 11,
+                            max: 11,
+                            message: '请输入11位手机号码'
+                        },
+
+                        regexp: {
+                            regexp: /^1[3|5|7|8]{1}[0-9]{9}$/,
+                            message: '请输入正确的手机号码'
+                        }
+                    }
+                },
+
+                password: {
+                    message: '密码无效',
+                    validators: {
+                        notEmpty: {
+                            message: '密码不能为空'
+                        },
+                        identical: {//相同
+                            field: 'repassword', //需要进行比较的input name值
+                            message: '两次密码不一致'
+                        },
+                        different: {//不能和用户名相同
+                            field: 'account',//需要进行比较的input name值
+                            message: '不能和用户名相同'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_\.]+$/,
+                            message: 'The username can only consist of alphabetical, number, dot and underscore'
+                        }
+                    }
+                },
+                repassword: {
+                    message: '密码无效',
+                    validators: {
+                        notEmpty: {
+                            message: '用户名不能为空'
+                        },
+
+                        identical: {//相同
+                            field: 'password',
+                            message: '两次密码不一致'
+                        },
+                        different: {//不能和用户名相同
+                            field: 'account',
+                            message: '不能和用户名相同'
+                        },
+                        regexp: {//匹配规则
+                            regexp: /^[a-zA-Z0-9_\.]+$/,
+                            message: 'The username can only consist of alphabetical, number, dot and underscore'
+                        }
+                    }
+                },
+                realname: {
+                    validators: {
+                        notEmpty: {
+                            message: '真实姓名不能为空'
+                        }
+                    }
+                }
+
+            }
+        });
+
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>文章管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta content="Coderthemes" name="author"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <link rel="shortcut icon" href="../static/image/logo.png"/>
+    <link href="../static/plugins/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <link href="../static/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="../static/plugins/bootstrap-table/bootstrap-table.css" rel="stylesheet">
+    <link href="../static/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <style>
+        .label {
+            margin-left: 10px;
+        }
+
+        .table tbody tr td {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class="fixed-left">
+<div id="wrapper">
+    <!--头部和左边菜单-->
+    <div>
+        <div class="topbar">
+            <div class="topbar-left">
+                <div class="text-center p-t-10" style="margin: 0 auto;">
+                    <div class="pull-left" style="padding-left: 10px;">
+                        <a href="/admin/index.html">
+                            <img src="../static/image/logo.png" width="50" height="50"/>
+                        </a>
+                    </div>
+                    <div class="pull-left" style="padding-left: 10px;">
+                        <span style="font-size: 20px; color: #2f353f; line-height: 50px;">我的博客</span>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar navbar-default" role="navigation">
+                <div class="container">
+                    <div class="">
+                        <div class="pull-left">
+                            <button type="button" class="button-menu-mobile open-left">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <span class="clearfix"></span>
+                        </div>
+
+                        <ul class="nav navbar-nav navbar-right pull-right">
+                            <li class="dropdown">
+                                <a href="/admin/index.html" class="dropdown-toggle profile" data-toggle="dropdown"
+                                   aria-expanded="true">
+                                    <span class="glyphicon glyphicon-user"/>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="javascript:void(0);" onclick="logout()"><i class="fa fa-sign-out"></i>
+                                        注销</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="left side-menu">
+            <div class="sidebar-inner slimscrollleft">
+                <div id="sidebar-menu">
+                    <ul>
+                        <li>
+                            <a id="index" href="index.html" class="waves-effect ">
+                                <i class="fa fa-dashboard" aria-hidden="true"></i>
+                                <span> 仪表盘 </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a id="article_edit" href="article_edit.html" class="waves-effect">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                <span> 发布文章 </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="article_list.html" class="waves-effect active">
+                                <i class="fa fa-list" aria-hidden="true"></i>
+                                <span> 文章管理 </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="comment_list.html" class="waves-effect">
+                                <i class="fa fa-comments" aria-hidden="true"></i>
+                                <span> 评论管理 </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="category.html" class="waves-effect">
+                                <i class="fa fa-tags" aria-hidden="true"></i>
+                                <span> 分类/标签 </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="file.html" class="waves-effect">
+                                <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                                <span> 文件管理 </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="user.html" class="waves-effect">
+                                <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                                <span> 用户管理 </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-page">
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">文章查询</div>
+                            <div class="panel-body">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <label for="title">标题</label>
+                                        <input type="text" class="form-control" id="title" placeholder="请输入文章名称">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="title">状态</label>
+                                       <select name="status" id="status" class="form-control">
+                                           <option value="">[请选择]</option>
+                                           <option value="1">发布</option>
+                                           <option value="2">草稿</option>
+                                       </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="created">发布日期</label>
+                                        <input type="text" class="form-control" id="created" placeholder="请选择发布日期范围" readonly style="width: 200px">
+                                    </div>
+                                    <button type="button" class="btn btn-default" id="searchBtn">查询</button>
+                                    <button type="button" class="btn btn-default" id="clearBtn">清空</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div id="toolbar">
+                            <a href="article_edit.html" class="btn btn-primary">发布文章</a>
+                        </div>
+
+                        <table id="articleTable">
+
+                        </table>
+                    </div>
+                </div>
+                <div>
+                    <footer class="footer text-right">
+                        2019 © <a href="#" target="_blank">Blog</a>
+                        <div class=""></div>
+                    </footer>
+                </div>
+            </div>
+            <div class="modal fade" id="category_list" tabindex="-1" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">文章所属分类</h4>
+                        </div>
+                        <div class="modal-body" id="category">
+                            <span class="label label-success">分类1</span>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">关闭</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--所有页面必须导入start-->
+<script src="../static/plugins/jquery/jquery-3.4.0.js"></script>
+<script src="../static/plugins/jquery/jquery.app.js"></script>
+<script src="../static/plugins/bootstrap/js/bootstrap.js"></script>
+<script src="../static/js/base.js"></script>
+<!--所有页面必须导入end-->
+<script src="../static/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="../static/plugins/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+<script src="../static/plugins/laydate/laydate.js"></script>
+<script>
+    $(function () {
+        /*初始化日期插件*/
+        laydate.render({
+            elem:'#created',
+            range:true/*设置范围选择*/
+        });
+       /*初始化数据表格*/
+        $('#articleTable').bootstrapTable({
+            url: getRootPath()+'/admin/article/getPage?r='+Math.random(),
+            method: 'get',
+            striped: true, //是否开启各行换色
+            cache: false,  //是否开启数据缓存
+            showRefresh: true,//是否开启刷新按钮
+            sidePagination: 'server',       //服务端分页
+            pageNumber: 1,                  //默认加载第一页
+            pagination: true,               //是否显示分页
+            pageSize: 5,                    //每页显示条数
+            pageList:[5,10,20,30,50],       //可供选择的每页行数
+            toolbar: '#toolbar',
+            columns: [     //设置每一列的信息
+                {field: 'id', title: '编号'},
+                {field: 'title', title: '标题',formatter:titleFun},
+                {field: 'intro', title: '简介',formatter:titleFun},
+                {field:'hits',title:'点击量'},
+                {field:'created',title:'发布时间'},
+                {field:'status',title:'状态',formatter:statusFun},
+                {field:'category',title:'查看分类',formatter:categoryFun},
+                {field: 'opt', title: '操作', formatter: optFun}
+            ]
+        });
+        /*查询按钮单击事件*/
+        $('#searchBtn').click(function () {
+            var title = $('#title').val();
+            var status= $('#status').val();
+            var created= $('#created').val();
+            $('#articleTable').bootstrapTable('refresh',{
+                query:{
+                    title:title,
+                    status:status,
+                    created:created
+                }
+            });
+        });
+        /*清空按钮单击事件*/
+        $('#clearBtn').click(function () {
+            $('#title').val('');
+            $('#status').val('');
+            $('#created').val('');
+        });
+        /*模态窗监听打开事件*/
+        $('#category_list').on('show.bs.modal',function (event) {
+            var id=$(event.relatedTarget).data('id');
+            if(id){
+                $.ajax({
+                    url:getRootPath()+'/admin/article/getCategory',
+                    data:{aid:id},
+                    method:'post',
+                    dataType:'json',
+                    success:function (res) {
+                        var html ='';
+                        if (res.length>0){
+
+                            for (var i =0;i<res.length;i++){
+                                html+='<span class="label label-success">'+res[i].cname+'</span> ';
+                            }
+                        }else {
+                            html='<span class="label label-danger">暂无数据</span>';
+                        }
+                        $('#category').empty().append(html);
+                    },
+                    error:function (e) {
+                        alert('获取分类信息出现异常,请稍后再试...');
+                        console.log(e);
+                    }
+                });
+            }
+        });
+    });
+    function titleFun(value,rows) {
+        var str= value;
+        if (str.length>15){
+            str=str.substr(0,15)+'...';
+        }
+        return'<span title="'+value+'">'+str+'</span>';
+    }
+    function statusFun(value) {
+        if (value==1){
+            return '发布';
+        } else {
+            return '草稿';
+        }
+    }
+    function categoryFun(value,rows) {
+        return '<button class="btn btn-primary" type="button" data-id="'+rows.id+'" data-target="#category_list" data-toggle="modal">查看分类</button>';
+    }
+    function optFun(value,rows){
+        return '<button class="btn btn-success" type="button">预览</button> <a href="article_edit.html?id='+rows.id+'" class="btn btn-primary" type="button">修改</a> <button class="btn btn-danger" type="button">删除</button>';
+    }
+
+</script>
+</body>
+</html>
